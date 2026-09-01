@@ -1,1 +1,1 @@
-"""Core agent and retrieval components."""
+"""Security, policy, and provider primitives."""

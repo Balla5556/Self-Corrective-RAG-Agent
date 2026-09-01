@@ -1,1 +1,1 @@
-"""SentinelRAG application package."""
+"""Sentinel Gateway package."""

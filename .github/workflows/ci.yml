@@ -1,12 +1,15 @@
-name: CI
+name: Security Gateway CI
 
 on:
   pull_request:
   push:
     branches: [main]
 
+permissions:
+  contents: read
+
 jobs:
-  test:
+  quality:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -16,8 +19,10 @@ jobs:
       - run: pip install -r requirements.txt
       - run: ruff check app tests
       - run: pytest -q
-      - run: python -m app.evaluation.run_benchmark
-      - uses: actions/upload-artifact@v4
-        with:
-          name: benchmark
-          path: artifacts/benchmark.json
+      - run: python -m compileall -q app
+  dependency-review:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/dependency-review-action@v4

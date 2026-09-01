@@ -1,26 +1,21 @@
 # LinkedIn launch post
 
-Built a production-minded **Self-Corrective Agentic RAG** system with automated evaluation. 🛡️
+Built **Sentinel Gateway** — an LLM security and observability layer for production GenAI applications. 🛡️
 
-Standard RAG can sound confident even when retrieved context is thin or irrelevant. I built SentinelRAG to make that failure mode visible—and correctable.
+Most LLM demos focus on the model response. Production teams also need to answer: *Was sensitive data sent upstream? Did a user try to override the system prompt? Which tenant is driving cost and latency?*
 
-Key architecture decisions:
+Sentinel Gateway is an OpenAI-compatible FastAPI proxy that sits between an application and its LLM provider.
 
-- **Corrective routing:** grades retrieved evidence, retries a conservative query rewrite, then escalates to web search only when context remains weak.
-- **Hybrid retrieval:** combines semantic and lexical signals so technical identifiers and concepts are both retrievable.
-- **Faithfulness gate:** blocks answers that cannot be grounded in the retrieved sources and returns a transparent fallback instead.
-- **Evaluation-first workflow:** benchmark harness captures context precision, faithfulness, and answer relevance proxies locally, with a RAGAS integration point for LLM-as-a-judge evaluation.
-- **MLOps baseline:** Dockerized Streamlit UI, evidence/citation display, typed LangGraph state, offline unit tests, and GitHub Actions CI.
+- Detects and blocks high-confidence prompt-injection attempts
+- Redacts email, phone, SSN, card, and key-like PII before provider calls
+- Enforces tenant-level authentication, request limits, token ceilings, and daily cost budgets
+- Records privacy-preserving audit events—fingerprints and policy metadata, never raw prompts
+- Exposes Prometheus metrics and an operations dashboard for blocks, redactions, latency, and cost
+- Includes Docker, automated security tests, CI, and a formal threat model
 
-📊 On my domain-specific benchmark, the corrective workflow achieved **[X]% context-precision improvement** and **[Y]% reduction in unsupported answers** versus the baseline. *(Replace only after running your benchmark.)*
+The design choice I care most about: observability should not create a second data-leakage channel. The gateway intentionally logs *what happened* without storing customer prompts or model responses.
 
-The part I’m happiest with: the agent does not merely produce an answer—it exposes the route, evidence, relevance score, and faithfulness decision that led to it.
+🔗 GitHub: [add repository link]
+🎥 Demo: [add 20-second video showing PII redaction and a blocked injection]
 
-🔗 GitHub: [repository link]
-💻 Demo: [deployed Streamlit / Hugging Face Space link]
-
-#GenerativeAI #RAG #AgenticAI #MLOps #LangGraph #Python #Docker #MachineLearning
-
-## Suggested asset
-
-Record a 15-second screen capture: one grounded query, one out-of-corpus query that triggers the fallback, then expand the trace and citations. Lead the post with that video or a screenshot of the trace—use the Mermaid architecture from the README as the carousel's second slide.
+#LLMOps #GenerativeAI #AIsecurity #MLOps #FastAPI #Observability #Python #OpenTelemetry

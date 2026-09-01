@@ -1,1 +1,0 @@
-"""Evaluation tooling for SentinelRAG."""
