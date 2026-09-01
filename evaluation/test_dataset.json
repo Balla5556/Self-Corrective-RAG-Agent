@@ -1,0 +1,10 @@
+[
+  {
+    "question": "What is the role of anomaly detection thresholds in telemetry?",
+    "ground_truth": "Anomaly detection thresholds isolate unexpected latency spikes and packet drops from standard baseline noise."
+  },
+  {
+    "question": "How does RAG augment large language models?",
+    "ground_truth": "RAG augments LLMs by retrieving relevant contextual data from vector databases before generating answers."
+  }
+]
