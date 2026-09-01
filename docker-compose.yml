@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  rag-agent:
+    build: .
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    volumes:
+      - .:/app
